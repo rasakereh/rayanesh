@@ -1,0 +1,12 @@
+{
+    "name": "rayanesh/dastaanbot",
+    "description": "Rayanesh 12's game",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "rasakereh",
+            "email": "rasakereh@manmail.ir"
+        }
+    ],
+    "require": {}
+}
