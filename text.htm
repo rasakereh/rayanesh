@@ -1,0 +1,129 @@
+<html dir = "rtl">
+    <head>
+        <meta charset="utf-8"/>
+        <title>رایانش</title>
+
+        <style>
+            body
+            {
+                background: url("bg.jpg");
+                background-repeat: no-repeat;
+                background-position: left top;
+                background-size: cover, cover;
+                color: #580606;
+            }
+
+            .wordBox
+            {
+                padding-right: 3pt;
+                padding-bottom: 32pt;
+            }
+
+            .wordBox .selected
+            {
+                background-color: rgba(122, 40, 40, 0.8);
+                border: 2px solid black;
+            }
+
+            #storyFrame
+            {
+                overflow-wrap: break-word;
+                max-width: 70%;
+                border: 1px dashed #7a2828;
+                padding: .5%;
+                margin: .5%;
+            }
+
+            #controls
+            {
+                margin-top: 2%;
+            }
+
+            #btnChanger /* W3schools */
+            {
+                background-color: #d8a58e;
+                border: none;
+                color: white;
+                padding: 3px 6px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                border-radius: 8px;
+            }
+
+            #txtWordChanger
+            {
+                background-color: #eaddd3;
+                border: 1px #92655d solid;
+                border-radius: 5px;
+                width: 30%;
+            }
+
+            #credit
+            {
+                font-size: 50%;
+                text-align: center;
+                position: fixed;
+                bottom: 10px;
+                right: 10px;
+            }
+        </style>
+        
+        <script>
+            var story = "یه توپ دارم قلقلیه، سوراخ سوراخ و گلیه، میزنم زمین، هوا میره! نمی‌دونی تا کجا میره :دی";
+            var selectedWord = "wb0";
+
+            function loadTheStory()
+            {
+                storyWords = story.split(" ");
+                storyFrame = document.getElementById('storyFrame');
+                for(var i = 0; i < storyWords.length; i++)
+                {
+                    wordBox = document.createElement('span');
+                    wordBox.setAttribute('class', 'wordBox');
+                    wordBox.setAttribute('id', 'wb'+i);
+                    wordBox.setAttribute('onclick', 'wordSelected("wb'+i+'")');
+                    wordBox.innerText = storyWords[i];
+                    storyFrame.appendChild(wordBox);
+                }
+                //TODO: spaces
+            }
+
+            function wordSelected(wordID)
+            {
+                previousWord = document.getElementById(selectedWord);
+                word = document.getElementById(wordID);
+                previousWord.setAttribute('class', 'wordBox');
+                word.setAttribute('class', 'wordBox selected');
+                selectedWord = wordID;
+                document.getElementById('txtWordChanger').value = word.innerText;
+            }
+
+            function changeWord()
+            {
+                word = document.getElementById(selectedWord);
+                alternative = document.getElementById('txtWordChanger').value
+                word.innerText = alternative;
+                document.location = "change.php?wid="+selectedWord+"&alternative="+nuetralized(alternative);
+            }
+
+            function nuetralized(input)
+            {
+                return input;
+                //TODO: this bro
+            }
+        </script>
+    </head>
+    <body onload = "loadTheStory()">
+        <div id = "whole">
+            <div id = "storyFrame"></div>
+            <div id = "controls">
+                <input type = "text" id = "txtWordChanger">
+                <input type = "button" value = "تغییرش بده" id = "btnChanger" onclick = "changeWord()">
+            </div>
+
+            <div id = "credit">Photo by Kelli Tungay on Unsplash</div>
+        </div>
+    </body>
+</html>
