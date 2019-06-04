@@ -8,5 +8,13 @@
             "email": "rasakereh@manmail.ir"
         }
     ],
-    "require": {}
+    "require": {
+        "formapro/telegram-bot": "*@dev"
+    },
+    "repositories": {
+        "repo-name": {
+            "type": "vcs",
+            "url": "https://github.com/formapro/telegram-bot-php.git"
+        }
+    }
 }
