@@ -1,20 +1,10 @@
 <?php
 require_once __DIR__ . '/vendor/autoload.php';
-require_once __DIR__ . 'appVars.inc.php';
+require_once __DIR__ . '/appVars.inc.php';
 
-function storeInClass($className, $srcArray)
-{
-    try
-    {
-        $result = new $className();
-        foreach($srcArray as $key=>$value)
-        {
-            $result->$key = $value;
-        }
-
-        return $result;
-    }
-}
+use Formapro\TelegramBot\AnswerCallbackQuery;
+use Formapro\TelegramBot\Bot;
+use Formapro\TelegramBot\Update;
 
 function logInput()
 {
@@ -25,9 +15,6 @@ function logInput()
 function main()
 {
     logInput();
-    use Formapro\TelegramBot\AnswerCallbackQuery;
-    use Formapro\TelegramBot\Bot;
-    use Formapro\TelegramBot\Update;
     
     $bot = new Bot($botToken);
 
