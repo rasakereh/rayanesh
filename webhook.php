@@ -12,8 +12,14 @@ function logInput($input)
     fprintf($fd, "%s\n", $input);
 }
 
+function herokuLog($msg)
+{
+    error_log(var_export($msg, true));
+}
+
 function main()
 {
+    global $botToken;
     $input = file_get_contents('php://input');
     logInput($input);
     
@@ -27,7 +33,8 @@ function main()
     {
         $answer = new AnswerCallbackQuery($callbackQuery->getId());
         $answer->setUrl($gameURL);
-        $bot->answerCallbackQuery($answer);
+        $res = $bot->answerCallbackQuery($answer);
+        herokuLog($res);
     }
 }
 
