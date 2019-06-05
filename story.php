@@ -1,78 +1,45 @@
+<?php
+require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/appVars.inc.php';
+
+$database = initDatabase();
+$storyWords = $database->select('Story', ['word_place', 'word']);
+usort($storyWords, function($a, $b){return $a['word_place'] - $b['word_place'];});
+$story = "";
+
+foreach($storyWords as $word)
+{
+    $story .= $word . ' ';
+}
+
+$story = '"' . trim($story) . '"';
+
+?>
 <html dir = "rtl">
     <head>
         <meta charset="utf-8"/>
         <title>رایانش</title>
-
-        <style>
-            body
-            {
-                background: url("bg.jpg");
-                background-repeat: no-repeat;
-                background-position: left top;
-                background-size: cover, cover;
-                color: #580606;
-            }
-
-            .wordBox
-            {
-                padding-right: 3pt;
-                padding-bottom: 32pt;
-            }
-
-            .wordBox .selected
-            {
-                background-color: rgba(122, 40, 40, 0.8);
-                border: 2px solid black;
-            }
-
-            #storyFrame
-            {
-                overflow-wrap: break-word;
-                max-width: 70%;
-                border: 1px dashed #7a2828;
-                padding: .5%;
-                margin: .5%;
-            }
-
-            #controls
-            {
-                margin-top: 2%;
-            }
-
-            #btnChanger /* W3schools */
-            {
-                background-color: #d8a58e;
-                border: none;
-                color: white;
-                padding: 3px 6px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 16px;
-                border-radius: 8px;
-            }
-
-            #txtWordChanger
-            {
-                background-color: #eaddd3;
-                border: 1px #92655d solid;
-                border-radius: 5px;
-                width: 30%;
-            }
-
-            #credit
-            {
-                font-size: 50%;
-                text-align: center;
-                position: fixed;
-                bottom: 10px;
-                right: 10px;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href="style.css">
         
         <script>
-            var story = "یه توپ دارم قلقلیه، سوراخ سوراخ و گلیه، میزنم زمین، هوا میره! نمی‌دونی تا کجا میره :دی";
+            var urlParams = new URLSearchParams(window.location.search);
+            var story = <?php echo($story); ?>;
+            var username = urlParams.get('username');
+            var token = urlParams.get('token');
             var selectedWord = "wb0";
+
+            function ajax(destination, request, responseHandle) {
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function() {
+					if (this.readyState == 4 && this.status == 200) {
+						responseHandle(this.responseText);
+					}
+				};
+				xhttp.open("POST", destination, true);
+				xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+				xhttp.setRequestHeader('Content-Type', 'application/json');
+				xhttp.send(request);
+			}
 
             function loadTheStory()
             {
@@ -87,7 +54,6 @@
                     wordBox.innerText = storyWords[i];
                     storyFrame.appendChild(wordBox);
                 }
-                //TODO: spaces
             }
 
             function wordSelected(wordID)
@@ -105,13 +71,31 @@
                 word = document.getElementById(selectedWord);
                 alternative = document.getElementById('txtWordChanger').value
                 word.innerText = alternative;
-                document.location = "change.php?wid="+selectedWord+"&alternative="+nuetralized(alternative);
+                changeRequest = {username: username,
+                                token: token,
+                                wp: selectedWord, 
+                                alternative: nuetralized(alternative)};
+                ajax("change.php", JSON.stringify(changeRequest), verifyChange);
             }
 
             function nuetralized(input)
             {
                 return input;
                 //TODO: this bro
+            }
+
+            funciton verifyChange(response)
+            {
+                //TODO: replace alerts with better buddies
+                response = JSON.parse(response);
+                if(response['success'])
+                {
+                    alert("عوض شد :)");
+                }
+                else
+                {
+                    alert(response['errorMsg']);
+                }
             }
         </script>
     </head>

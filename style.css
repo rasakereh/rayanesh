@@ -1,0 +1,64 @@
+body
+{
+    background: url("bg.jpg");
+    background-repeat: no-repeat;
+    background-position: left top;
+    background-size: cover, cover;
+    color: #580606;
+}
+
+.wordBox
+{
+    padding-right: 3pt;
+    padding-bottom: 32pt;
+}
+
+.wordBox .selected
+{
+    background-color: rgba(122, 40, 40, 0.8);
+    border: 2px solid black;
+}
+
+#storyFrame
+{
+    overflow-wrap: break-word;
+    max-width: 70%;
+    border: 1px dashed #7a2828;
+    padding: .5%;
+    margin: .5%;
+}
+
+#controls
+{
+    margin-top: 2%;
+}
+
+input[type=button] /* W3schools */
+{
+    background-color: #d8a58e;
+    border: none;
+    color: white;
+    padding: 3px 6px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 8px;
+}
+
+input[type=text]
+{
+    background-color: #eaddd3;
+    border: 1px #92655d solid;
+    border-radius: 5px;
+    width: 30%;
+}
+
+#credit
+{
+    font-size: 50%;
+    text-align: center;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+}
