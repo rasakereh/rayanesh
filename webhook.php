@@ -6,19 +6,20 @@ use Formapro\TelegramBot\AnswerCallbackQuery;
 use Formapro\TelegramBot\Bot;
 use Formapro\TelegramBot\Update;
 
-function logInput()
+function logInput($input)
 {
     $fd = fopen("inputs.txt", "a");
-    fprintf($fd, "%s\n", file_get_contents('php://input'));
+    fprintf($fd, "%s\n", $input);
 }
 
 function main()
 {
-    logInput();
+    $input = file_get_contents('php://input');
+    logInput($input);
     
     $bot = new Bot($botToken);
 
-    $data = json_decode(file_get_contents('php://input'), true);
+    $data = json_decode($input, true);
 
     $update = Update::create($data);
 
