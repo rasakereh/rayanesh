@@ -19,7 +19,7 @@ function herokuLog($msg)
 
 function main()
 {
-    global $botToken;
+    global $botToken, $gameURL;
     $input = file_get_contents('php://input');
     logInput($input);
     
