@@ -39,7 +39,7 @@ function getRegisterationInfo($update)
             $registerationInfo['fullname'] = "NO_NAME";
         
         registerVisitor($registerationInfo);
-        $registerationInfo['inviter'];
+        //$registerationInfo['inviter'];
 
         return $registerationInfo;
     }
@@ -47,7 +47,7 @@ function getRegisterationInfo($update)
     if(count($matchedUsernames) != 1)
     {
         $registerationInfo['registered'] = false;
-        $registerationInfo['inviter'];
+        //$registerationInfo['inviter'];
         
         return $registerationInfo;
     }
@@ -86,6 +86,7 @@ function main()
     $bot = new Bot($botToken);
 
     $data = json_decode($input, true);
+    herokuLog(var_export($data, true));
 
     $update = Update::create($data);
 
