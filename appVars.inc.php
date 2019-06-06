@@ -3,7 +3,9 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 $botToken = "821288398:AAFj7vf3L3hw0kLBGwsnkU__fzy8TmFxuMA";
 $gameURL = "https://rayanesh-game.herokuapp.com/story.php";
-$gameTgURL = "t.me/rayaneshTestBot?game=dastaan";
+$signupURL = "https://rayanesh-game.herokuapp.com/signup.php";
+$gameName = "dastaan";
+$gameTgURL = "t.me/rayaneshTestBot?game=".$gameName;
 
 /***********************
  ** Hyper parameters
