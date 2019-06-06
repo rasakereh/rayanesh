@@ -2,11 +2,88 @@
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/appVars.inc.php';
 
+function time_diff($t1, $t2)
+{
+    return abs($t1-$t2);
+}
+
+function tokenMatchesUser($token, $username)
+{
+    return (tokenFromUsername($username) == $token);
+}
+
+function isWpValid($wp)
+{
+    if(!is_numeric($wp))    return false;
+    if(intval($wp) != floatval($wp))    return false;
+    if(0 > intval($wp) || intval($wp) >= WORD_COUNT)    return false;
+    
+    return true;
+}
+
+function isAlternativeValid($word)
+{
+    return strlen($word) <= MAX_LEN;
+}
+
+function isUserOveractive($username)
+{
+    $database = initDatabase();
+    $modifications = $database->select('Modifications', 'change_time', ['username'=>$username]);
+    $userLimit = $database->select('Users', 'w_limit', ['username'=>$username])[0];
+    rsort($modifications);
+
+    return !(count($modifications) < $userLimit || time_diff($modifications[$userLimit-1], time()) > TIME_QUANTUM);
+}
+
 function validateRequest($input)
 {
-    //Token to identofy real sender
     //Characters need to be legal
-    return ["success" => true];
+    $result = [];
+    if(!isset($input['username']) || !isset($input['wp']) || !isset($input['alternative']) || !isset($input['token']))
+    {
+        $result['success'] = false;
+        $result['errorMsg'] = 'درخواست بد';
+
+        return $result;
+    }
+
+    if(!tokenMatchesUser($input['token'], $input['username']))
+    {
+        $result['success'] = false;
+        $result['errorMsg'] = 'درخواست بد';
+
+        return $result;
+    }
+
+    if(!isWpValid($input['wp']))
+    {
+        $result['success'] = false;
+        $result['errorMsg'] = 'درخواست بد';
+
+        return $result;
+    }
+
+    if(!isAlternativeValid($input['alternative']))
+    {
+        $result['success'] = false;
+        $result['errorMsg'] = 'چقدر طولانیه بزرگوار!';
+
+        return $result;
+    }
+
+    if(isUserOveractive($input['username']))
+    {
+        $result['success'] = false;
+        $result['errorMsg'] = 'کار و زندگی نداری رفیق؟ برو بشین پا درسات! محدودیت تعداد تغییر داریما!';
+
+        return $result;
+    }
+    
+    $result['success'] = true;
+
+    return $result;
+    
 }
 
 function main()

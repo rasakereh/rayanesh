@@ -12,6 +12,8 @@ define("W_LIMIT", 1);
 define("dW", 1);
 define("DELAY", 1);
 define("INITIALIZE_PORTION", 1);
+define("WORD_COUNT", 1);
+define("MAX_LEN", 1);
 
 use Medoo\Medoo;
 
@@ -38,4 +40,17 @@ function logInput($input)
 function herokuLog($msg)
 {
     error_log(var_export($msg, true));
+}
+
+function tokenFromUsername($username)
+{
+    $str1 = $username;
+    $str2 = $username;
+    for($i = 0; $i < 19; $i++)
+    {
+        $str1 = substr(md5($str1), 3, 16);
+        $str2 = substr(md5($str2), 11, 16);
+    }
+
+    return $str1.$str2;
 }

@@ -7,6 +7,7 @@
         <script>
             var urlParams = new URLSearchParams(window.location.search);
             var userid = urlParams.get('userid');
+            var inviter = urlParams.get('inviter');
 
             function ajax(destination, request, responseHandle) {
 				var xhttp = new XMLHttpRequest();
@@ -25,6 +26,8 @@
             {
                 var username = document.getElementbyId('btnRegister').value;
                 registerRequest = {userid: userid, username: username};
+                if(inviter != null)
+                    registerRequest.inviter = inviter;
                 ajax("register.php", JSON.stringify(registerRequest), verifyRegisteration);
             }
 
