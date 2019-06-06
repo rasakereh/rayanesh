@@ -26,6 +26,7 @@ $story = '"' . trim($story) . '"';
             var story = <?php echo($story); ?>;
             var username = urlParams.get('username');
             var token = urlParams.get('token');
+            var inviteLink = <?php echo($gameTgURL); ?> + "&inviter=" + username;
             var selectedWord = "wb0";
 
             function ajax(destination, request, responseHandle) {
@@ -40,6 +41,12 @@ $story = '"' . trim($story) . '"';
 				xhttp.setRequestHeader('Content-Type', 'application/json');
 				xhttp.send(request);
 			}
+
+            function init()
+            {
+                document.getElementById('inviteSpan').innerText = inviteLink;
+                loadTheStory();
+            }
 
             function loadTheStory()
             {
@@ -86,20 +93,32 @@ $story = '"' . trim($story) . '"';
 
             funciton verifyChange(response)
             {
-                //TODO: replace alerts with better buddies
                 response = JSON.parse(response);
                 if(response['success'])
                 {
-                    alert("عوض شد :)");
+                    displayMessage("عوض شد :)");
                 }
                 else
                 {
-                    alert(response['errorMsg']);
+                    displayMessage(response['errorMsg']);
                 }
+            }
+
+            function copyLink()
+            {
+                document.getElementById('inviteSpan').select();
+                document.execCommand("copy");
+                displayMessage("کپی شد");
+            }
+
+            function displayMessage(msg)
+            {
+                //TODO: replace alerts with better buddies
+                alert(msg);
             }
         </script>
     </head>
-    <body onload = "loadTheStory()">
+    <body onload = "init()">
         <div id = "whole">
             <div id = "storyFrame"></div>
             <div id = "controls">
@@ -107,6 +126,10 @@ $story = '"' . trim($story) . '"';
                 <input type = "button" value = "تغییرش بده" id = "btnChanger" onclick = "changeWord()">
             </div>
 
+            <div>
+                با این لینک ملتو دعوت کن به بازی تا محدودیت کلماتت کمتر شه:
+                <span id = "inviteSpan"></span> <input type = "button" value = "کپی لینک" onclick = "copyLink()">
+            </div>
             <div id = "credit">Photo by Kelli Tungay on Unsplash</div>
         </div>
     </body>
