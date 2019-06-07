@@ -1,0 +1,17 @@
+Activity flow:
+    (/start request)
+    1. We first recieve a start request
+    2. check if the start request associates with a username
+    3. if it does goto sendGame()
+    // Here the start command is triggered for the first time for the username
+    4. register him/her in the Visitors
+    5. register his/her inviter data (if any)
+    6. goto prepareRegisteration()
+
+    sendGame:
+        send that god damn game
+    
+    prepareRegisteration:
+        ask user for the username
+
+    

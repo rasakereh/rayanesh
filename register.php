@@ -2,7 +2,7 @@
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/appVars.inc.php';
 
-function isValidUsername()
+function isValidUsername($username)
 {
     //TODO: fix it
     return true;
@@ -43,21 +43,14 @@ function validateInput($input)
         return $result;
     }
     $result['success'] = true;
-    if(!isset($input['inviter']))
-    {
-        $result['hasValidInviter'] = false;
-        return $result;
-    }
-    $matchedInviters = $database->select('Users', '*', ['username'=>$input['inviter']]);
-    $result['hasValidInviter'] = (count($matchedUsernames) == 1);
+    $result['hasValidInviter'] = isset($input['inviter']);
     
     return $result;
 
 }
 
-function main()
+function register($input)
 {
-    $input = json_decode(file_get_contents("php://input"));
     $validationResult = validateInput($input);
     if($validationResult['success'])
     {
@@ -71,10 +64,8 @@ function main()
             $inviterWLimit = $database->select('Users', 'w_limit', ['username'=>$inviter])[0] ;
             $inviterWLimit += dW;
             $database->update('Users', ['w_limit'=>$inviterWLimit], ['username'=>$inviter]);
-            $database->insert('Invitations', ['inviter'=>$inviter, 'invitee'=>$username]);
         }
     }
-    echo(json_encode($validationResult));
+    return $validationResult;
 }
 
-main();

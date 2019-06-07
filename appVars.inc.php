@@ -1,11 +1,14 @@
 <?php
 require_once __DIR__ . '/vendor/autoload.php';
 
-$botToken = "821288398:AAFj7vf3L3hw0kLBGwsnkU__fzy8TmFxuMA";
-$gameURL = "https://rayanesh-game.herokuapp.com/story.php";
-$signupURL = "https://rayanesh-game.herokuapp.com/signup.php";
-$gameName = "dastaan";
-$gameTgURL = "t.me/rayaneshTestBot?game=".$gameName;
+/***********************
+ ** Game Info
+ **********************/
+define("BOT_TOKEN", "821288398:AAFj7vf3L3hw0kLBGwsnkU__fzy8TmFxuMA");
+define("GAME_URL", "https://rayanesh-game.herokuapp.com/story.php");
+define("REGISTER_URL", "https://rayanesh-game.herokuapp.com/register.php");
+define("GAME_NAME", "dastaan");
+define("GAME_TG_URL", "t.me/rayaneshTestBot?game=".GAME_NAME);
 
 /***********************
  ** Hyper parameters
