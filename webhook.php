@@ -223,14 +223,14 @@ function callbackRecieved($update)
     $callbackQuery = $update->getCallbackQuery();
     $gameName = $callbackQuery->getGameShortName();
     $callbackData = $callbackQuery->getData();
-    $username = getRegisterationInfo($sender->getID())['username'];
     if(!is_null($gameName))
     {
         sendGame(getRegisterationInfo($callbackQuery->getFrom()->getID()), $callbackQuery);
         return ;
     }
-    if(!is_null($callbackData))
+    if(!is_null($callbackData) && $callbackData == "Invite")
     {
+        $username = getRegisterationInfo($callbackQuery->getFrom()->getID())['username'];
         $bot = new Bot(BOT_TOKEN);
         $queryString = "?start=".$username;
         $answer = new AnswerCallbackQuery($callbackQuery->getId());
