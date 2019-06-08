@@ -223,6 +223,7 @@ function callbackRecieved($update)
     $callbackQuery = $update->getCallbackQuery();
     $gameName = $callbackQuery->getGameShortName();
     $callbackData = $callbackQuery->getData();
+    $username = getRegisterationInfo($sender->getID())['username'];
     if(!is_null($gameName))
     {
         sendGame(getRegisterationInfo($callbackQuery->getFrom()->getID()), $callbackQuery);
@@ -230,7 +231,12 @@ function callbackRecieved($update)
     }
     if(!is_null($callbackData))
     {
-        sendTextMessage($callbackQuery->getFrom()->getID(), "داداش! گویا میگی که: ".$callbackData);
+        $bot = new Bot(BOT_TOKEN);
+        $queryString = "?start=".$username;
+        $answer = new AnswerCallbackQuery($callbackQuery->getId());
+        $answer->setText(BOT_URL . $queryString);
+        $bot->answerCallbackQuery($answer);
+        sendTextMessage($callbackQuery->getFrom()->getID(), "اینو بفرست برا رفقات و محدودیت تعداد تغییرتو کمتر کن :))");
         return ;
     }
 }

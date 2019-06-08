@@ -30,28 +30,20 @@ $story = '"' . trim($story) . '"';
             var selectedWord = "wb0";
 
             function ajax(destination, request, responseHandle) {
-                try
-                {
-                    var xhttp = new XMLHttpRequest();
-                    xhttp.onreadystatechange = function() {
-                        if (this.readyState == 4 && this.status == 200) {
-                            responseHandle(this.responseText);
-                        }
-                    };
-                    xhttp.open("POST", destination, true);
-                    xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-                    xhttp.setRequestHeader('Content-Type', 'application/json');
-                    xhttp.send(request);
-                }
-                catch(error)
-                {
-                    displayMessage(error.message);
-                }
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        responseHandle(this.responseText);
+                    }
+                };
+                xhttp.open("POST", destination, true);
+                xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                xhttp.setRequestHeader('Content-Type', 'application/json');
+                xhttp.send(request);
 			}
 
             function init()
             {
-                //document.getElementById('inviteSpan').innerText = inviteLink;
                 loadTheStory();
             }
 
@@ -83,12 +75,12 @@ $story = '"' . trim($story) . '"';
             function changeWord()
             {
                 word = document.getElementById(selectedWord);
-                alternative = document.getElementById('txtWordChanger').value
-                word.innerText = alternative;
+                alternative = document.getElementById('txtWordChanger').value;
                 changeRequest = {username: username,
                                 token: token,
                                 wp: selectedWord.substring(2), 
                                 alternative: nuetralized(alternative)};
+                displayMessage("یه لحظه وایسا به بچه‌های سرور بگم...", false);
                 ajax("change.php", JSON.stringify(changeRequest), verifyChange);
             }
 
@@ -103,25 +95,34 @@ $story = '"' . trim($story) . '"';
                 response = JSON.parse(response);
                 if(response['success'])
                 {
-                    displayMessage("عوض شد :)");
+                    word = document.getElementById(selectedWord);
+                    alternative = document.getElementById('txtWordChanger').value;
+                    word.innerText = alternative;
+                    displayMessage("عوض شد :)", true);
                 }
                 else
                 {
-                    displayMessage(response['errorMsg']);
+                    displayMessage(response['errorMsg'], true);
                 }
             }
 
-            function copyLink()
-            {
-                document.getElementById('inviteSpan').select();
-                document.execCommand("copy");
-                displayMessage("کپی شد");
-            }
-
-            function displayMessage(msg)
+            function displayMessage(msg, autoVanish)
             {
                 //TODO: replace alerts with better buddies
                 document.getElementById('messageBox').innerText = msg;
+                displayMessage(true);
+                if(autoVanish)
+                {
+                    setTimeout(function(){
+                        displayModal(false);
+                    }, 2000);
+                }
+            }
+
+            function displayModal(visible)
+            {
+                var modal = document.getElementById("msgModal");
+                modal.style.display = visible ? "block" : "none";
             }
         </script>
     </head>
@@ -132,14 +133,15 @@ $story = '"' . trim($story) . '"';
                 <input type = "text" id = "txtWordChanger">
                 <input type = "button" value = "تغییرش بده" id = "btnChanger" onclick = "changeWord()">
             </div>
-            <!--
-            <div>
-                با این لینک ملتو دعوت کن به بازی تا محدودیت کلماتت کمتر شه:
-                <span id = "inviteSpan"></span> <input type = "button" value = "کپی لینک" onclick = "copyLink()">
-            </div>
-            -->
-            <div id = "messageBox"></div>
             <div id = "credit">Photo by Annie Spratt on Unsplash</div>
+        </div>
+        <!-- Modal adopted of https://www.w3schools.com/howto/howto_css_modals.asp -->
+        <div id="msgModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div id = "messageBox"></div>
+            </div>
         </div>
     </body>
 </html>

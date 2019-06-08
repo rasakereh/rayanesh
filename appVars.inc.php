@@ -7,8 +7,9 @@ require_once __DIR__ . '/vendor/autoload.php';
 define("BOT_TOKEN", "821288398:AAFj7vf3L3hw0kLBGwsnkU__fzy8TmFxuMA");
 define("GAME_URL", "https://rayanesh-game.herokuapp.com/story.php");
 define("REGISTER_URL", "https://rayanesh-game.herokuapp.com/register.php");
+define("BOT_URL", "t.me/rayaneshTestBot");
 define("GAME_NAME", "dastaan");
-define("GAME_TG_URL", "t.me/rayaneshTestBot?game=".GAME_NAME);
+define("GAME_TG_URL", BOT_URL . "?game=" . GAME_NAME);
 
 /***********************
  ** Hyper parameters
