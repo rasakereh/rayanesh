@@ -11,7 +11,7 @@ function main()
     خون آریایی تو رگات نیست اگه به اشتراک نذاری";
 
     $database = initDatabase();
-    $database->delete("story", ["1"=>"1"]);
+    $database->delete("story", ["OR"=>["word_place"=>0, "word_place[!]"=>0]]);
     $words = explode(" ",$story);
     for($i = 0; $i < count($words); $i++)
     {
