@@ -51,7 +51,7 @@ $story = '"' . trim($story) . '"';
 
             function init()
             {
-                document.getElementById('inviteSpan').innerText = inviteLink;
+                //document.getElementById('inviteSpan').innerText = inviteLink;
                 loadTheStory();
             }
 
