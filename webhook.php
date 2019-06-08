@@ -63,11 +63,9 @@ function sendSignupForm($chatid)
 {
     herokuLog(__FUNCTION__);
     //herokuLog(func_get_args());
-    $messageText = "برای ثبت نام از نام کاربری و گذرواژه ایمیل ce.sharif.edu@ات استفاده کن.
+    $messageText = "برای شروع نام کاربریتو وارد کن.\n برای این‌کار از نام کاربری ایمیل ce.sharif.edu@ات استفاده کن.
     نام کاربری اون چیزیه که قبل @ تو میل سی‌ای میاد.";
-    $message = new SendMessage($chatid, $messageText);
-    $bot = new Bot(BOT_TOKEN);
-    $bot->sendMessage($message);
+    $sendTextMessage($chatid, $messageText);
 }
 
 function sendTextMessage($chatid, $messageText)
