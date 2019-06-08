@@ -197,7 +197,7 @@ function main()
     if(!$requestType['valid'])
         return;
     
-    switch($requestType)
+    switch($requestType['type'])
     {
         case COMMAND::START:
             startRecieved($update);
