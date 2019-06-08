@@ -137,7 +137,7 @@ $story = '"' . trim($story) . '"';
                 با این لینک ملتو دعوت کن به بازی تا محدودیت کلماتت کمتر شه:
                 <span id = "inviteSpan"></span> <input type = "button" value = "کپی لینک" onclick = "copyLink()">
             </div>
-            <div id = "credit">Photo by Kelli Tungay on Unsplash</div>
+            <div id = "credit">Photo by Annie Spratt on Unsplash</div>
         </div>
     </body>
 </html>
