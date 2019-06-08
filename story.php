@@ -110,7 +110,7 @@ $story = '"' . trim($story) . '"';
             {
                 //TODO: replace alerts with better buddies
                 document.getElementById('messageBox').innerText = msg;
-                displayMessage(true);
+                displayModal(true);
                 if(autoVanish)
                 {
                     setTimeout(function(){
