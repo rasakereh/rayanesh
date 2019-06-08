@@ -44,7 +44,7 @@ function validateRequest($input)
     {
         $result['success'] = false;
         $result['errorMsg'] = 'درخواست بد';
-
+        herokuLog("Parameters not set!");
         return $result;
     }
 
@@ -52,7 +52,7 @@ function validateRequest($input)
     {
         $result['success'] = false;
         $result['errorMsg'] = 'درخواست بد';
-
+        herokuLog("invalid token!");
         return $result;
     }
 
@@ -60,7 +60,7 @@ function validateRequest($input)
     {
         $result['success'] = false;
         $result['errorMsg'] = 'درخواست بد';
-
+        herokuLog("invalid wordpalce!");
         return $result;
     }
 
