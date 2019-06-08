@@ -1,7 +1,7 @@
 <?php
-require_once __DIR__ . '/vendor/autoload.php';
-require_once __DIR__ . '/appVars.inc.php';
-require_once __DIR__ . '/register.php';
+require_once __DIR__ . "/vendor/autoload.php";
+require_once __DIR__ . "/appVars.inc.php";
+require_once __DIR__ . "/register.php";
 
 use GuzzleHttp\ClientInterface;
 use Formapro\TelegramBot\AnswerCallbackQuery;
@@ -34,16 +34,16 @@ function getRegisterationInfo($userid, $database=NULL)
     //herokuLog(func_get_args());
     $registerationInfo = [];
     $database = $database ?? initDatabase();
-    $matchedUsernames = $database->select('Users', 'username', ['tele_id'=>$userid]);
+    $matchedUsernames = $database->select("Users", "username", ["tele_id"=>$userid]);
     if(count($matchedUsernames) != 1)
     {
-        $registerationInfo['registered'] = false;
+        $registerationInfo["registered"] = false;
         
         return $registerationInfo;
     }
-    $registerationInfo['registered'] = true;
-    $registerationInfo['username'] = $matchedUsernames[0];
-    $registerationInfo['token'] = tokenFromUsername($registerationInfo['username']);
+    $registerationInfo["registered"] = true;
+    $registerationInfo["username"] = $matchedUsernames[0];
+    $registerationInfo["token"] = tokenFromUsername($registerationInfo["username"]);
     
     return $registerationInfo;
 }
@@ -52,7 +52,7 @@ function sendGame($registerationInfo, $callbackQuery)
 {
     herokuLog(__FUNCTION__);
     //herokuLog(func_get_args());
-    $queryString = "?username=".$registerationInfo['username']."&token=".$registerationInfo['token'];
+    $queryString = "?username=".$registerationInfo["username"]."&token=".$registerationInfo["token"];
     $answer = new AnswerCallbackQuery($callbackQuery->getId());
     $answer->setUrl($gameURL.$queryString);
     $res = $bot->answerCallbackQuery($answer);
@@ -96,8 +96,8 @@ function sendGameMessage($chatid)
         "game_short_name"=>GAME_NAME,
         "reply_markup"=>$keyboard
     ];
-    $response = $httpClient->post($bot->getMethodUrl('sendGame'), [
-        'json' => get_values($gameMessage),
+    $response = $httpClient->post($bot->getMethodUrl("sendGame"), [
+        "json" => get_values($gameMessage),
     ]);
 }
 
@@ -105,20 +105,20 @@ function getRequestType($update)
 {
     herokuLog(__FUNCTION__);
     //herokuLog(func_get_args());
-    $result = ['valid'=>false];
+    $result = ["valid"=>false];
     $database = initDatabase();
-    if(count($database->select('Updates', '*', ['update_id'=>$update->getUpdateId()])))
+    if(count($database->select("Updates", "*", ["update_id"=>$update->getUpdateId()])))
         return $result;
     
-    $res = $database->insert('Updates', ['update_id'=>$update->getUpdateId()]);
+    $res = $database->insert("Updates", ["update_id"=>$update->getUpdateId()]);
     herokuLog($res);
     
     $callbackQuery = $update->getCallbackQuery();
     $message = $update->getMessage();
     if(!is_null($callbackQuery))
     {
-        $result['type'] = COMMAND::CALLBACK;
-        $result['valid'] = true;
+        $result["type"] = COMMAND::CALLBACK;
+        $result["valid"] = true;
 
         return $result;
     }
@@ -131,13 +131,13 @@ function getRequestType($update)
         }
         if(strncmp($msgText, "/start", strlen("/start")) == 0)
         {
-            $result['type'] = COMMAND::START;
-            $result['valid'] = true;
+            $result["type"] = COMMAND::START;
+            $result["valid"] = true;
             
             return $result;
         }
-        $result['type'] = COMMAND::MESSAGE;
-        $result['valid'] = true;
+        $result["type"] = COMMAND::MESSAGE;
+        $result["valid"] = true;
 
         return $result;
     }
@@ -154,7 +154,7 @@ function startRecieved($update)
     $msgText = $message->getText();
     $sender = $message->getFrom();
     $database = initDatabase();
-    $matchedVisitors = $database->select('Visitors', '*', ['userid'=>$sender->getID()]);
+    $matchedVisitors = $database->select("Visitors", "*", ["userid"=>$sender->getID()]);
     if(count($matchedVisitors) == 0)
     {
         // There is a new visitor:
@@ -169,7 +169,7 @@ function startRecieved($update)
         {
             // There is an inviter:
             sscanf($msgText, "/start %s", $inviter);
-            $matchedInviters = $database->select('Users', 'username', ['username'=>$inviter]);
+            $matchedInviters = $database->select("Users", "username", ["username"=>$inviter]);
             if(count($matchedInviters) == 1)
             {
                 $database->insert("Invitations", ["inviter"=>$inviter, "invitee"=>$sender->getID()]);
@@ -179,7 +179,7 @@ function startRecieved($update)
     sendGameRules($message->getChat()->getID());
     $registerationInfo = getRegisterationInfo($sender->getID(), $database);
     
-    if($registerationInfo['registered'])
+    if($registerationInfo["registered"])
     {
         sendGameMessage($message->getChat()->getID());
     }
@@ -198,21 +198,21 @@ function messageRecieved($update)
     $msgText = $message->getText();
     $sender = $message->getFrom();
     $registerationInfo = getRegisterationInfo($sender->getID(), $database);
-    if(!$registerationInfo['registered'])
+    if(!$registerationInfo["registered"])
     {
-        $input = ['username'=>$msgText, 'userid'=>$sender->getID()];
-        $inviters = $database->select('Invitations', "inviter", ['invitee'=>$sender->getID()]);
+        $input = ["username"=>$msgText, "userid"=>$sender->getID()];
+        $inviters = $database->select("Invitations", "inviter", ["invitee"=>$sender->getID()]);
         if(count($inviters) == 1)
-            $input['inviter'] = $inviters[0];
+            $input["inviter"] = $inviters[0];
         $registerResult = register($input);
-        if($registerResult['success'])
+        if($registerResult["success"])
         {
             sendTextMessage($message->getChat()->getID(), "خوش اومدی رفیق!");
             sendGameMessage($message->getChat()->getID());
         }
         else
         {
-            sendTextMessage($message->getChat()->getID(), $registerResult['errorMsg']);
+            sendTextMessage($message->getChat()->getID(), $registerResult["errorMsg"]);
         }
     }
 }
@@ -221,17 +221,17 @@ function main()
 {
     herokuLog(__FUNCTION__);
     //herokuLog(func_get_args());
-    $input = file_get_contents('php://input');
+    $input = file_get_contents("php://input");
     
     $data = json_decode($input, true);
 
     $update = Update::create($data);
 
     $requestType = getRequestType($update);
-    if(!$requestType['valid'])
+    if(!$requestType["valid"])
         return;
     
-    switch($requestType['type'])
+    switch($requestType["type"])
     {
         case COMMAND::START:
             startRecieved($update);
