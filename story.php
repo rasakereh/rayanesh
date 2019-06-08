@@ -26,7 +26,7 @@ $story = '"' . trim($story) . '"';
             var story = <?php echo($story); ?>;
             var username = urlParams.get('username');
             var token = urlParams.get('token');
-            var inviteLink = <?php echo($gameTgURL); ?> + "&inviter=" + username;
+            var inviteLink = <?php echo('"'.GAME_TG_URL.'"'); ?> + "&inviter=" + username;
             var selectedWord = "wb0";
 
             function ajax(destination, request, responseHandle) {
