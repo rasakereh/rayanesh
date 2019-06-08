@@ -31,7 +31,11 @@ function initDatabase()
         'database_name' => ltrim($dbopts["path"],'/'),
         'server' => $dbopts["host"],
         'username' => $dbopts["user"],
-        'password' => $dbopts["pass"]
+        'password' => $dbopts["pass"],
+        "option"        => [
+            PDO::ATTR_CASE    => PDO::CASE_NATURAL,
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        ]
     ]);
 
     return $database;
