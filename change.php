@@ -23,7 +23,7 @@ function isWpValid($wp)
 
 function isAlternativeValid($word)
 {
-    return (strlen($word) <= MAX_LEN) && (strpos($word, " ") === false);
+    return (mb_strlen($word) <= MAX_LEN) && (strpos($word, " ") === false);
 }
 
 function isUserOveractive($username)
