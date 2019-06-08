@@ -65,7 +65,7 @@ function sendSignupForm($chatid)
     //herokuLog(func_get_args());
     $messageText = "برای شروع نام کاربریتو وارد کن.\n برای این‌کار از نام کاربری ایمیل ce.sharif.edu@ات استفاده کن.
     نام کاربری اون چیزیه که قبل @ تو میل سی‌ای میاد.";
-    sendTextMessage($chatid, $messageText);
+    $sendTextMessage($chatid, $messageText);
 }
 
 function sendTextMessage($chatid, $messageText)
