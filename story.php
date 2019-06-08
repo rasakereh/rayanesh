@@ -86,7 +86,7 @@ $story = '"' . trim($story) . '"';
 
             function nuetralized(input)
             {
-                return input;
+                return input.trim();
                 //TODO: this bro
             }
 
