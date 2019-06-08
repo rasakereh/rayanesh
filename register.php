@@ -59,8 +59,10 @@ function register($input)
         $username = $input['username'];
         $database = initDatabase();
         $database->insert('users', ['username'=>$username, 'tele_id'=>$userID, 'w_limit'=>W_LIMIT]);
+        herokuLog("Checking if has valid inviter");
         if($result['hasValidInviter'])
         {
+            herokuLog("Yes he has :))");
             $inviter = $input['inviter'];
             $inviterWLimit = $database->select('users', 'w_limit', ['username'=>$inviter])[0] ;
             $inviterWLimit += dW;
