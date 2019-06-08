@@ -110,7 +110,7 @@ function getRequestType($update)
     if(count($database->select('Updates', '*', ['update_id'=>$update->getUpdateId()])))
         return $result;
     
-    $database->insert('Updates', ['update_id'=>$update->getUpdateId()]);
+    var_dump($database->insert('Updates', ['update_id'=>$update->getUpdateId()]));
     
     $callbackQuery = $update->getCallbackQuery();
     $message = $update->getMessage();
@@ -226,7 +226,6 @@ function main()
 
     $update = Update::create($data);
 
-    //sendTextMessage($update->getMessage()->getChat()->getID(), "گند زدم فدا سرم");
     $requestType = getRequestType($update);
     if(!$requestType['valid'])
         return;
