@@ -164,7 +164,7 @@ function startRecieved($update)
         
         $database->insert("visitors", ["userid"=>$sender->getID(),
                                         "fullname"=>$fullname,
-                                        "chatid"=>$message->getChat()->getID()]);
+                                        "chat_id"=>$message->getChat()->getID()]);
         if(strlen($msgText) > strlen("/start "))
         {
             // There is an inviter:
