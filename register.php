@@ -2,10 +2,11 @@
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/appVars.inc.php';
 
-function isValidUsername($username)
+function isValidUsername($username, $database)
 {
-    //TODO: fix it
-    return true;
+    $validUsernames = $database->select("validusernames", "username", ["username"=>$username]);
+
+    return count($validUsernames) == 1;
 }
 
 function validateInput($input)
@@ -27,7 +28,7 @@ function validateInput($input)
 
         return $result;
     }
-    if(!isValidUsername($input['username']))
+    if(!isValidUsername($input['username'], $database))
     {
         $result['success'] = false;
         $result['errorMsg'] = 'از نام کاربری ایمیل CE استفاده کنید';
