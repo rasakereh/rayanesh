@@ -11,7 +11,7 @@ function main()
     while(!feof($fn))
     {
         $currUser = fgets($fn);
-        $database->insert("story", ["username"=>trim($currUser)]);
+        $database->insert("validusername", ["username"=>trim($currUser)]);
     }
     fclose($fn);
 
