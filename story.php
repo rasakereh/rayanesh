@@ -6,7 +6,7 @@ $database = initDatabase();
 $storyWords = $database->select('story', ['word_place', 'word']);
 usort($storyWords, function($a, $b){return $a['word_place'] - $b['word_place'];});
 $story = "";
-var_dump($storyWords);
+
 foreach($storyWords as $word)
 {
     $story .= $word['word'] . ' ';
