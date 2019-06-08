@@ -19,7 +19,7 @@ function validateInput($input)
         return $result;
     }
     $database = initDatabase();
-    $matchedVisitors = $database->select('Visitors', '*', ['userid'=>$input['userid']]);
+    $matchedVisitors = $database->select('visitors', '*', ['userid'=>$input['userid']]);
     if(count($matchedVisitors) != 1)
     {
         $result['success'] = false;
@@ -34,7 +34,7 @@ function validateInput($input)
 
         return $result;
     }
-    $matchedUsernames = $database->select('Users', '*', ['username'=>$input['username']]);
+    $matchedUsernames = $database->select('users', '*', ['username'=>$input['username']]);
     if(count($matchedUsernames) != 0)
     {
         $result['success'] = false;
@@ -57,13 +57,13 @@ function register($input)
         $userID = $input['userid'];
         $username = $input['username'];
         $database = initDatabase();
-        $database->insert('Users', ['username'=>$username, 'tele_id'=>$userID, 'w_limit'=>W_LIMIT]);
+        $database->insert('users', ['username'=>$username, 'tele_id'=>$userID, 'w_limit'=>W_LIMIT]);
         if($result['hasValidInviter'])
         {
             $inviter = $input['inviter'];
-            $inviterWLimit = $database->select('Users', 'w_limit', ['username'=>$inviter])[0] ;
+            $inviterWLimit = $database->select('users', 'w_limit', ['username'=>$inviter])[0] ;
             $inviterWLimit += dW;
-            $database->update('Users', ['w_limit'=>$inviterWLimit], ['username'=>$inviter]);
+            $database->update('users', ['w_limit'=>$inviterWLimit], ['username'=>$inviter]);
         }
     }
     return $validationResult;

@@ -3,7 +3,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/appVars.inc.php';
 
 $database = initDatabase();
-$storyWords = $database->select('Story', ['word_place', 'word']);
+$storyWords = $database->select('story', ['word_place', 'word']);
 usort($storyWords, function($a, $b){return $a['word_place'] - $b['word_place'];});
 $story = "";
 

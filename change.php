@@ -29,8 +29,8 @@ function isAlternativeValid($word)
 function isUserOveractive($username)
 {
     $database = initDatabase();
-    $modifications = $database->select('Modifications', 'change_time', ['username'=>$username]);
-    $userLimit = $database->select('Users', 'w_limit', ['username'=>$username])[0];
+    $modifications = $database->select('modifications', 'change_time', ['username'=>$username]);
+    $userLimit = $database->select('users', 'w_limit', ['username'=>$username])[0];
     rsort($modifications);
 
     return !(count($modifications) < $userLimit || time_diff($modifications[$userLimit-1], time()) > TIME_QUANTUM);
@@ -97,9 +97,9 @@ function main()
         $word_place = $input['wp'];
         $change_time = time();
         $alternative = $input['alternative'];
-        $database->insert('Modifications',
+        $database->insert('modifications',
             ['username'=>$username, 'word_place'=>$word_place, 'change_time'=>$change_time]);
-        $database->update('Story', ['word'=>$alternative, 'writer'=>$username], ['word_place'=>$word_place]);
+        $database->update('story', ['word'=>$alternative, 'writer'=>$username], ['word_place'=>$word_place]);
     }
 
     echo(json_encode($requestValidity));

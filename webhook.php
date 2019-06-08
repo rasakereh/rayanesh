@@ -34,7 +34,7 @@ function getRegisterationInfo($userid, $database=NULL)
     //herokuLog(func_get_args());
     $registerationInfo = [];
     $database = $database ?? initDatabase();
-    $matchedUsernames = $database->select("Users", "username", ["tele_id"=>$userid]);
+    $matchedUsernames = $database->select("users", "username", ["tele_id"=>$userid]);
     if(count($matchedUsernames) != 1)
     {
         $registerationInfo["registered"] = false;
@@ -107,10 +107,10 @@ function getRequestType($update)
     //herokuLog(func_get_args());
     $result = ["valid"=>false];
     $database = initDatabase();
-    if(count($database->select("Updates", "*", ["update_id"=>$update->getUpdateId()])))
+    if(count($database->select("updates", "*", ["update_id"=>$update->getUpdateId()])))
         return $result;
     
-    $res = $database->insert("Updates", ["update_id"=>$update->getUpdateId()]);
+    $res = $database->insert("updates", ["update_id"=>$update->getUpdateId()]);
     herokuLog($res);
     
     $callbackQuery = $update->getCallbackQuery();
@@ -154,7 +154,7 @@ function startRecieved($update)
     $msgText = $message->getText();
     $sender = $message->getFrom();
     $database = initDatabase();
-    $matchedVisitors = $database->select("Visitors", "*", ["userid"=>$sender->getID()]);
+    $matchedVisitors = $database->select("visitors", "*", ["userid"=>$sender->getID()]);
     if(count($matchedVisitors) == 0)
     {
         // There is a new visitor:
@@ -162,17 +162,17 @@ function startRecieved($update)
         if(strlen($fullname) == 1)
             $fullname = "NO_NAME";
         
-        $database->insert("Visitors", ["userid"=>$sender->getID(),
+        $database->insert("visitors", ["userid"=>$sender->getID(),
                                         "fullname"=>$fullname,
                                         "chatid"=>$message->getChat()->getID()]);
         if(strlen($msgText) > strlen("/start "))
         {
             // There is an inviter:
             sscanf($msgText, "/start %s", $inviter);
-            $matchedInviters = $database->select("Users", "username", ["username"=>$inviter]);
+            $matchedInviters = $database->select("users", "username", ["username"=>$inviter]);
             if(count($matchedInviters) == 1)
             {
-                $database->insert("Invitations", ["inviter"=>$inviter, "invitee"=>$sender->getID()]);
+                $database->insert("invitations", ["inviter"=>$inviter, "invitee"=>$sender->getID()]);
             }
         }
     }
@@ -201,7 +201,7 @@ function messageRecieved($update)
     if(!$registerationInfo["registered"])
     {
         $input = ["username"=>$msgText, "userid"=>$sender->getID()];
-        $inviters = $database->select("Invitations", "inviter", ["invitee"=>$sender->getID()]);
+        $inviters = $database->select("invitations", "inviter", ["invitee"=>$sender->getID()]);
         if(count($inviters) == 1)
             $input["inviter"] = $inviters[0];
         $registerResult = register($input);
