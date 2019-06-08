@@ -106,6 +106,12 @@ function getRequestType($update)
     herokuLog(__FUNCTION__);
     //herokuLog(func_get_args());
     $result = ['valid'=>false];
+    $database = initDatabase();
+    if(count($database->select('Updates', '*', ['update_id'=>$update->getUpdateId()])))
+        return $result;
+    
+    $database->insert('Updates', ['update_id'=>$update->getUpdateId()]);
+    
     $callbackQuery = $update->getCallbackQuery();
     $message = $update->getMessage();
     if(!is_null($callbackQuery))
