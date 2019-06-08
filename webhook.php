@@ -18,6 +18,8 @@ class COMMAND
 
 function getRegisterationInfo($userid, $database=NULL)
 {
+    herokuLog(__FUNCTION__);
+    herokuLog(func_get_args());
     $registerationInfo = [];
     $database = $database ?? initDatabase();
     $matchedUsernames = $database->select('Users', 'username', ['tele_id'=>$userid]);
@@ -36,6 +38,8 @@ function getRegisterationInfo($userid, $database=NULL)
 
 function sendGame($registerationInfo, $callbackQuery)
 {
+    herokuLog(__FUNCTION__);
+    herokuLog(func_get_args());
     $queryString = "?username=".$registerationInfo['username']."&token=".$registerationInfo['token'];
     $answer = new AnswerCallbackQuery($callbackQuery->getId());
     $answer->setUrl($gameURL.$queryString);
@@ -45,6 +49,8 @@ function sendGame($registerationInfo, $callbackQuery)
 
 function sendSignupForm($chatid)
 {
+    herokuLog(__FUNCTION__);
+    herokuLog(func_get_args());
     $messageText = "برای ثبت نام از نام کاربری و گذرواژه ایمیل ce.sharif.edu@ات استفاده کن.
     نام کاربری اون چیزیه که قبل @ تو میل سی‌ای میاد.";
     $message = new SendMessage($chatid, $messageText);
@@ -54,6 +60,8 @@ function sendSignupForm($chatid)
 
 function sendTextMessage($chatid, $messageText)
 {
+    herokuLog(__FUNCTION__);
+    herokuLog(func_get_args());
     $message = new SendMessage($chatid, $messageText);
     $bot = new Bot(BOT_TOKEN);
     $bot->sendMessage($message);
@@ -61,6 +69,8 @@ function sendTextMessage($chatid, $messageText)
 
 function sendGameMessage($chatid)
 {
+    herokuLog(__FUNCTION__);
+    herokuLog(func_get_args());
     $httpClient = new \GuzzleHttp\Client();
     $bot = new Bot(BOT_TOKEN);
     $keyboard = [
@@ -83,6 +93,8 @@ function sendGameMessage($chatid)
 
 function getRequestType($update)
 {
+    herokuLog(__FUNCTION__);
+    herokuLog(func_get_args());
     $result = ['valid'=>false];
     $callbackQuery = $update->getCallbackQuery();
     $message = $update->getMessage();
@@ -119,6 +131,8 @@ function getRequestType($update)
 
 function startRecieved($update)
 {
+    herokuLog(__FUNCTION__);
+    herokuLog(func_get_args());
     $message = $update->getMessage();
     $msgText = $message->getText();
     $sender = $message->getFrom();
@@ -160,6 +174,8 @@ function startRecieved($update)
 
 function messageRecieved($update)
 {
+    herokuLog(__FUNCTION__);
+    herokuLog(func_get_args());
     $database = initDatabase();
     $message = $update->getMessage();
     $msgText = $message->getText();
@@ -186,6 +202,8 @@ function messageRecieved($update)
 
 function main()
 {
+    herokuLog(__FUNCTION__);
+    herokuLog(func_get_args());
     $input = file_get_contents('php://input');
     
     $data = json_decode($input, true);
