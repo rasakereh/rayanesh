@@ -18,7 +18,7 @@ define("W_LIMIT", 4);
 define("dW", 1);
 define("DELAY", 1);
 define("INITIALIZE_PORTION", 1);
-define("WORD_COUNT", 1);
+define("WORD_COUNT", 200);
 define("MAX_LEN", 15);
 
 use Medoo\Medoo;
