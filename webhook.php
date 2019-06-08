@@ -54,7 +54,7 @@ function sendGame($registerationInfo, $callbackQuery)
     //herokuLog(func_get_args());
     $queryString = "?username=".$registerationInfo["username"]."&token=".$registerationInfo["token"];
     $answer = new AnswerCallbackQuery($callbackQuery->getId());
-    $answer->setUrl($gameURL.$queryString);
+    $answer->setUrl(GAME_URL.$queryString);
     $res = $bot->answerCallbackQuery($answer);
     //herokuLog($res);
 }
@@ -229,7 +229,7 @@ function callbackRecieved($update)
     }
     if(!is_null($callbackData))
     {
-        sendTextMessage($callbackQuery->getChatInstance(), "داداش! گویا میگی که: ".$callbackData);
+        sendTextMessage($callbackQuery->getFrom()->getID(), "داداش! گویا میگی که: ".$callbackData);
         return ;
     }
 }
