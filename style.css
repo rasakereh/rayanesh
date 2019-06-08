@@ -4,7 +4,7 @@ body
     background-repeat: no-repeat;
     background-position: left top;
     background-size: cover, cover;
-    color: #580606;
+    color: #f99157;
 }
 
 .wordBox
@@ -22,8 +22,8 @@ body
 #storyFrame
 {
     overflow-wrap: break-word;
-    max-width: 70%;
-    border: 1px dashed #7a2828;
+    max-width: 90%;
+    border: 1px dashed #f4cbb4;
     padding: .5%;
     margin: .5%;
 }
@@ -35,9 +35,9 @@ body
 
 input[type=button] /* W3schools */
 {
-    background-color: #d8a58e;
+    background-color: #f4cbb4;
     border: none;
-    color: white;
+    color: #90cacc;
     padding: 3px 6px;
     text-align: center;
     text-decoration: none;
@@ -48,8 +48,8 @@ input[type=button] /* W3schools */
 
 input[type=text]
 {
-    background-color: #eaddd3;
-    border: 1px #92655d solid;
+    background-color: ;
+    border: 1px #1b97a0 solid;
     border-radius: 5px;
     width: 30%;
 }
