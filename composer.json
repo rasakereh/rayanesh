@@ -10,7 +10,8 @@
     ],
     "require": {
         "formapro/telegram-bot": "*@dev",
-        "catfan/medoo": "^1.6"
+        "catfan/medoo": "^1.6",
+        "ext-mbstring": "*"
     },
     "repositories": {
         "repo-name": {
