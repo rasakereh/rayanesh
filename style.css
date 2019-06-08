@@ -4,7 +4,7 @@ body
     background-repeat: no-repeat;
     background-position: left top;
     background-size: cover, cover;
-    color: #f99157;
+    color: #1b97a0;
 }
 
 .wordBox
@@ -35,7 +35,7 @@ body
 
 input[type=button] /* W3schools */
 {
-    background-color: #f4cbb4;
+    background-color: #f99157;
     border: none;
     color: #90cacc;
     padding: 3px 6px;
@@ -48,7 +48,7 @@ input[type=button] /* W3schools */
 
 input[type=text]
 {
-    background-color: ;
+    background-color: #d9dcd6;
     border: 1px #1b97a0 solid;
     border-radius: 5px;
     width: 30%;
