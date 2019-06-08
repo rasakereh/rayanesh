@@ -96,7 +96,7 @@ function sendGameMessage($chatid)
         "game_short_name"=>GAME_NAME,
         "reply_markup"=>["inline_keyboard"=>$keyboard]
     ];
-    herokuLog($gameMessage);
+    //herokuLog($gameMessage);
     $response = $httpClient->post(getMethodUrl("sendGame"), [
         "json" => $gameMessage,
     ]);
@@ -214,6 +214,23 @@ function messageRecieved($update)
         {
             sendTextMessage($message->getChat()->getID(), $registerResult["errorMsg"]);
         }
+    }
+}
+
+function callbackRecieved($update)
+{
+    $callbackQuery = $update->getCallbackQuery();
+    $gameName = $callbackQuery->getGameShortName();
+    $callbackData = $callbackQuery->getData();
+    if(!is_null($gameName))
+    {
+        sendGame(getRegisterationInfo($callbackQuery->getFrom()->getID()), $callbackQuery);
+        return ;
+    }
+    if(!is_null($callbackData))
+    {
+        sendTextMessage($callbackQuery->getChatInstance(), "داداش! گویا میگی که: ".$callbackData);
+        return ;
     }
 }
 
