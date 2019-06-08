@@ -9,7 +9,7 @@ $story = "";
 var_dump($storyWords);
 foreach($storyWords as $word)
 {
-    $story .= $word . ' ';
+    $story .= $word['word'] . ' ';
 }
 
 $story = '"' . trim($story) . '"';
