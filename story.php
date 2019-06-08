@@ -45,7 +45,7 @@ $story = '"' . trim($story) . '"';
                 }
                 catch(error)
                 {
-                    alert(error.message);
+                    displayMessage(error.message);
                 }
 			}
 
@@ -121,7 +121,7 @@ $story = '"' . trim($story) . '"';
             function displayMessage(msg)
             {
                 //TODO: replace alerts with better buddies
-                alert(msg);
+                document.getElementById('messageBox').innerText = msg;
             }
         </script>
     </head>
@@ -136,6 +136,8 @@ $story = '"' . trim($story) . '"';
             <div>
                 با این لینک ملتو دعوت کن به بازی تا محدودیت کلماتت کمتر شه:
                 <span id = "inviteSpan"></span> <input type = "button" value = "کپی لینک" onclick = "copyLink()">
+            </div>
+            <div id = "messageBox">
             </div>
             <div id = "credit">Photo by Annie Spratt on Unsplash</div>
         </div>
