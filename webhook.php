@@ -94,7 +94,7 @@ function sendGameMessage($chatid)
 function getRequestType($update)
 {
     herokuLog(__FUNCTION__);
-    //herokuLog(func_get_args());
+    herokuLog(func_get_args());
     $result = ['valid'=>false];
     $callbackQuery = $update->getCallbackQuery();
     $message = $update->getMessage();
@@ -210,7 +210,7 @@ function main()
 
     $update = Update::create($data);
 
-    sendTextMessage($update->getMessage()->getChat()->getID(), "گند زدم فدا سرم");
+    //sendTextMessage($update->getMessage()->getChat()->getID(), "گند زدم فدا سرم");
     $requestType = getRequestType($update);
     if(!$requestType['valid'])
         return;
