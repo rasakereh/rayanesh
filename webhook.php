@@ -94,7 +94,7 @@ function sendGameMessage($chatid)
 function getRequestType($update)
 {
     herokuLog(__FUNCTION__);
-    herokuLog(func_get_args());
+    //herokuLog(func_get_args());
     $result = ['valid'=>false];
     $callbackQuery = $update->getCallbackQuery();
     $message = $update->getMessage();
@@ -112,7 +112,7 @@ function getRequestType($update)
         {
             return $result;
         }
-        if(strncmp($msgText, "/START", strlen("/START")) == 0)
+        if(strncmp($msgText, "/start", strlen("/start")) == 0)
         {
             $result['type'] = COMMAND::START;
             $result['valid'] = true;
