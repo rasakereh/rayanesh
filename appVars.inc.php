@@ -65,7 +65,7 @@ function tokenFromUsername($username)
     return $str1.$str2;
 }
 
-private function getMethodUrl(string $method): string
+function getMethodUrl(string $method): string
 {
     return sprintf('https://api.telegram.org/bot%s/%s', BOT_TOKEN, $method);
 }
