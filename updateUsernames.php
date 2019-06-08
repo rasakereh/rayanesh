@@ -11,7 +11,15 @@ function main()
     while(!feof($fn))
     {
         $currUser = fgets($fn);
+        try
+        {
         $database->insert("validusernames", ["username"=>trim($currUser)]);
+        }
+        catch(Exception $err)
+        {
+            echo("Inserting: ".trim($currUser));
+            echo($err->getMessage());
+        }
     }
     fclose($fn);
 
