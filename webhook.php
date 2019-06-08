@@ -97,7 +97,7 @@ function sendGameMessage($chatid)
         "reply_markup"=>$keyboard
     ];
     $response = $httpClient->post(getMethodUrl("sendGame"), [
-        "json" => get_values($gameMessage),
+        "json" => $gameMessage,
     ]);
 }
 
