@@ -7,6 +7,7 @@ use GuzzleHttp\ClientInterface;
 use Formapro\TelegramBot\AnswerCallbackQuery;
 use Formapro\TelegramBot\Bot;
 use Formapro\TelegramBot\Update;
+use Formapro\TelegramBot\SendMessage;
 
 class COMMAND
 {
