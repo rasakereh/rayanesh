@@ -87,7 +87,7 @@ $story = '"' . trim($story) . '"';
                 word.innerText = alternative;
                 changeRequest = {username: username,
                                 token: token,
-                                wp: selectedWord, 
+                                wp: selectedWord.substring(2), 
                                 alternative: nuetralized(alternative)};
                 ajax("change.php", JSON.stringify(changeRequest), verifyChange);
             }
