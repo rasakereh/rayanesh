@@ -13,13 +13,13 @@ define("GAME_TG_URL", "t.me/rayaneshTestBot?game=".GAME_NAME);
 /***********************
  ** Hyper parameters
  **********************/
-define("TIME_QUANTUM", 1);
-define("W_LIMIT", 1);
+define("TIME_QUANTUM", 60*30); // half an hour
+define("W_LIMIT", 4);
 define("dW", 1);
 define("DELAY", 1);
 define("INITIALIZE_PORTION", 1);
 define("WORD_COUNT", 1);
-define("MAX_LEN", 1);
+define("MAX_LEN", 15);
 
 use Medoo\Medoo;
 

@@ -23,7 +23,7 @@ function isWpValid($wp)
 
 function isAlternativeValid($word)
 {
-    return strlen($word) <= MAX_LEN;
+    return (strlen($word) <= MAX_LEN) && (strpos($word, " ") === false);
 }
 
 function isUserOveractive($username)
@@ -67,7 +67,7 @@ function validateRequest($input)
     if(!isAlternativeValid($input['alternative']))
     {
         $result['success'] = false;
-        $result['errorMsg'] = 'چقدر طولانیه بزرگوار!';
+        $result['errorMsg'] = 'این چیه آخه بزرگوار!';
 
         return $result;
     }
