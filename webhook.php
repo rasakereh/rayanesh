@@ -16,6 +16,18 @@ class COMMAND
     const CALLBACK = 2;
 };
 
+function sendGameRules($chatid)
+{
+    $message = "قوانین بازی:
+    🆔 میتونید با ثبت آیدی CEتون تو بات، بازی رو شروع کنید!(این همون آی‌دیه که باهاش ایمیل ce رو ساختید)
+    🕑 تو هر t دقیقه فقط میتونید w تا کلمه رو عوض کنید
+    🎁 میتونید به ازای معرفی هر نفر به بازی dw تا کلمه بیشتر تو این مدت زمان تغییر بدین
+    🔑 مسابقه d روز بعد شروع میشه و کسی که تو این مدت معرف تعداد بیشتری باشه، k% متن اولیه رو خودش مشخص میکنه
+    
+    پس دست بجنبونید!";
+    sendTextMessage($chatid, $message);
+}
+
 function getRegisterationInfo($userid, $database=NULL)
 {
     herokuLog(__FUNCTION__);
@@ -142,7 +154,7 @@ function startRecieved($update)
     {
         // There is a new visitor:
         $fullname = ($sender->getFirstName() ?? "") . " " . ($sender->getLastName() ?? "");
-        if(strlen($registerationInfo['fullname']) == 1)
+        if(strlen($fullname) == 1)
             $fullname = "NO_NAME";
         
         $database->insert("Visitors", ["userid"=>$sender->getID(),
