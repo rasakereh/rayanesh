@@ -191,6 +191,7 @@ function main()
 
     $update = Update::create($data);
 
+    sendTextMessage($update->getMessage()->getChat()->getID(), "گند زدم فدا سرم");
     $requestType = getRequestType($update);
     if(!$requestType['valid'])
         return;
