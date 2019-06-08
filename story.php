@@ -132,13 +132,13 @@ $story = '"' . trim($story) . '"';
                 <input type = "text" id = "txtWordChanger">
                 <input type = "button" value = "تغییرش بده" id = "btnChanger" onclick = "changeWord()">
             </div>
-
+            <!--
             <div>
                 با این لینک ملتو دعوت کن به بازی تا محدودیت کلماتت کمتر شه:
                 <span id = "inviteSpan"></span> <input type = "button" value = "کپی لینک" onclick = "copyLink()">
             </div>
-            <div id = "messageBox">
-            </div>
+            -->
+            <div id = "messageBox"></div>
             <div id = "credit">Photo by Annie Spratt on Unsplash</div>
         </div>
     </body>

@@ -33,6 +33,11 @@ body
     margin-top: 2%;
 }
 
+#messageBox
+{
+    background-color: #f99157;
+}
+
 input[type=button] /* W3schools */
 {
     background-color: #f99157;
