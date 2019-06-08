@@ -110,7 +110,7 @@ function getRequestType($update)
     if(count($database->select('Updates', '*', ['update_id'=>$update->getUpdateId()])))
         return $result;
     
-    var_dump($database->insert('Updates', ['update_id'=>$update->getUpdateId()]));
+    herokuLog($database->insert('Updates', ['update_id'=>$update->getUpdateId()]));
     
     $callbackQuery = $update->getCallbackQuery();
     $message = $update->getMessage();
