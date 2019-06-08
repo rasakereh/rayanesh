@@ -52,9 +52,10 @@ function sendGame($registerationInfo, $callbackQuery)
 {
     herokuLog(__FUNCTION__);
     //herokuLog(func_get_args());
+    $bot = new Bot(BOT_TOKEN);
     $queryString = "?username=".$registerationInfo["username"]."&token=".$registerationInfo["token"];
     $answer = new AnswerCallbackQuery($callbackQuery->getId());
-    $answer->setUrl(GAME_URL.$queryString);
+    $answer->setUrl(GAME_URL . $queryString);
     $res = $bot->answerCallbackQuery($answer);
     //herokuLog($res);
 }
