@@ -89,7 +89,7 @@ function sendGameMessage($chatid)
             ["text"=>"Play the god damn game!", "callback_game"=>["game_short_name"=>GAME_NAME]]
         ],
         [
-            ["text"=>"Invite the god damn friends!", "callback_data"=>"Invite"]
+            ["text"=>"Create my invite link!", "callback_data"=>"Invite"]
         ]
     ];
     $gameMessage = [
@@ -234,9 +234,9 @@ function callbackRecieved($update)
         $bot = new Bot(BOT_TOKEN);
         $queryString = "?start=".$username;
         $answer = new AnswerCallbackQuery($callbackQuery->getId());
-        $answer->setText(BOT_URL . $queryString);
+        $answer->setText("اینو بفرست برا رفقات و محدودیت تعداد تغییرتو کمتر کن :))");
         $bot->answerCallbackQuery($answer);
-        sendTextMessage($callbackQuery->getFrom()->getID(), "اینو بفرست برا رفقات و محدودیت تعداد تغییرتو کمتر کن :))");
+        sendTextMessage($callbackQuery->getFrom()->getID(), BOT_URL . $queryString);
         return ;
     }
 }
