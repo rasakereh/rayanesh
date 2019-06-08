@@ -94,8 +94,9 @@ function sendGameMessage($chatid)
     $gameMessage = [
         "chat_id"=>$chatid,
         "game_short_name"=>GAME_NAME,
-        "reply_markup"=>$keyboard
+        "reply_markup"=>["inline_keyboard"=>$keyboard]
     ];
+    herokuLog($gameMessage);
     $response = $httpClient->post(getMethodUrl("sendGame"), [
         "json" => $gameMessage,
     ]);
@@ -111,7 +112,6 @@ function getRequestType($update)
         return $result;
     
     $res = $database->insert("updates", ["update_id"=>$update->getUpdateId()]);
-    herokuLog($res);
     
     $callbackQuery = $update->getCallbackQuery();
     $message = $update->getMessage();
