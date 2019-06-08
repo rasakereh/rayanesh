@@ -30,16 +30,23 @@ $story = '"' . trim($story) . '"';
             var selectedWord = "wb0";
 
             function ajax(destination, request, responseHandle) {
-				var xhttp = new XMLHttpRequest();
-				xhttp.onreadystatechange = function() {
-					if (this.readyState == 4 && this.status == 200) {
-						responseHandle(this.responseText);
-					}
-				};
-				xhttp.open("POST", destination, true);
-				xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-				xhttp.setRequestHeader('Content-Type', 'application/json');
-				xhttp.send(request);
+                try
+                {
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                            responseHandle(this.responseText);
+                        }
+                    };
+                    xhttp.open("POST", destination, true);
+                    xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                    xhttp.setRequestHeader('Content-Type', 'application/json');
+                    xhttp.send(request);
+                }
+                catch(error)
+                {
+                    alert(error.message);
+                }
 			}
 
             function init()
