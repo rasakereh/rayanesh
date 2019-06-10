@@ -43,6 +43,9 @@ $story = '"' . trim($story) . '"';
 
             function init()
             {
+                document.getElementById('whole').ontouchend = (e) => {
+                    e.preventDefault();
+                };
                 loadTheStory();
             }
 
