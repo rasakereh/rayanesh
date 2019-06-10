@@ -26,7 +26,6 @@ $story = '"' . trim($story) . '"';
             var story = <?php echo($story); ?>;
             var username = urlParams.get('username');
             var token = urlParams.get('token');
-            var inviteLink = <?php echo('"'.GAME_TG_URL.'"'); ?> + "&inviter=" + username;
             var selectedWord = "wb0";
 
             function ajax(destination, request, responseHandle) {
@@ -127,6 +126,9 @@ $story = '"' . trim($story) . '"';
         </script>
     </head>
     <body onload = "init()">
+        <div id="background">
+            <img src="bg.jpg" class="stretch" alt="" />
+        </div>
         <div id = "whole">
             <div id = "storyFrame"></div>
             <div id = "controls">
