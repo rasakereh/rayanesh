@@ -8,6 +8,7 @@ body
 #whole
 {
     height: 100%;
+    position: absolute;
 }
 
 #background {
@@ -51,6 +52,7 @@ body
 #controls
 {
     margin-top: 2%;
+    max-height: 7%;
 }
 
 input[type=button] /* W3schools */
