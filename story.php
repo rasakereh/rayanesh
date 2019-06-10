@@ -43,7 +43,7 @@ $story = '"' . trim($story) . '"';
 
             function init()
             {
-                document.getElementById('whole').ontouchend = (e) => {
+                document.getElementById('background').ontouchend = (e) => {
                     e.preventDefault();
                 };
                 loadTheStory();
