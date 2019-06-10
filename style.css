@@ -2,6 +2,12 @@ body
 {
     color: #d5c5ae;
     height: 100%;
+    overflow: hidden;
+}
+
+#whole
+{
+    height: 100%;
 }
 
 #background {
@@ -34,7 +40,9 @@ body
 {
     display: flex;
     flex-wrap: wrap;
+    overflow: auto;
     max-width: 75%;
+    max-height: 80%;
     border: 2px groove #4a442b;
     padding: .5%;
     margin: .5%;

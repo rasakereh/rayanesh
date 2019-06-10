@@ -135,7 +135,7 @@ $story = '"' . trim($story) . '"';
                 <input type = "text" id = "txtWordChanger">
                 <input type = "button" value = "تغییرش بده" id = "btnChanger" onclick = "changeWord()">
             </div>
-            <div id = "credit">Photo by Annie Spratt on Unsplash</div>
+            <div id = "credit">Photo by Kelly Sikkema on Unsplash</div>
         </div>
         <!-- Modal adopted of https://www.w3schools.com/howto/howto_css_modals.asp -->
         <div id="msgModal" class="modal">
