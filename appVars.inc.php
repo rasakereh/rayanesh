@@ -4,11 +4,11 @@ require_once __DIR__ . '/vendor/autoload.php';
 /***********************
  ** Game Info
  **********************/
-define("BOT_TOKEN", "821288398:AAFj7vf3L3hw0kLBGwsnkU__fzy8TmFxuMA");
+define("BOT_TOKEN", "862132371:AAGxs5ukw_3JcWsZO4qhwVDNCWY3BoceXc4");
 define("GAME_URL", "https://rayanesh-game.herokuapp.com/story.php");
 define("REGISTER_URL", "https://rayanesh-game.herokuapp.com/register.php");
-define("BOT_URL", "t.me/rayaneshTestBot");
-define("GAME_NAME", "dastaan");
+define("BOT_URL", "t.me/RayaMag12Bot");
+define("GAME_NAME", "rdastaan");
 define("GAME_TG_URL", BOT_URL . "?game=" . GAME_NAME);
 
 /***********************
@@ -17,7 +17,8 @@ define("GAME_TG_URL", BOT_URL . "?game=" . GAME_NAME);
 define("TIME_QUANTUM", 60*30); // half an hour
 define("W_LIMIT", 4);
 define("dW", 1);
-define("DELAY", 1);
+define("RELEASE_DATE", 1560612600);
+define("DELAY", 5*24*60*60);   //5 days
 define("INITIALIZE_PORTION", 1);
 define("WORD_COUNT", 200);
 define("MAX_LEN", 15);
